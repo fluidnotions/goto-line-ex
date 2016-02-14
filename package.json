@@ -1,0 +1,51 @@
+{
+	"name": "goto-line-ex",
+	"displayName": "Goto line ex",
+	"description": "Go to line from current or keyword position",
+    "publisher": "xyz",
+	"version": "0.0.1",
+	"engines": {
+	    "vscode": "^0.10.7"
+	},
+    "homepage": "https://github.com/zabel-xyz/goto-line-ex",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/zabel-xyz/goto-line-ex.git"
+    },
+	"categories": [
+	    "Other"
+	],
+    "activationEvents": [
+	    "*"
+	],
+	"contributes": {
+	    "commands": [{
+			"command": "goto-line-ex.fromHere",
+			"title": "Go to Line from here..."
+        },{
+			"command": "goto-line-ex.fromKeyword",
+			"title": "Go to Line from keyword..."
+        }],
+        "configuration": {
+            "type": "object",
+            "title": "Goto line ex configuration",
+            "properties": {
+                "goto-line-ex.keyword": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A keyword to find to calculate starting postition"
+                }
+            }
+ 		}
+	},
+	"main": "./out/src/extension",
+	"scripts": {
+		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install"
+	},
+	"devDependencies": {
+		"typescript": "^1.6.2",
+		"vscode":  "^0.11.x"
+	}
+}
