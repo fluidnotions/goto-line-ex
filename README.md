@@ -1,6 +1,6 @@
 ## Go to Line Ex
 
-A visual source code plugin for navigate from cuurrent line or from line containing keyword.
+A visual source code plugin for navigate from current line or from line containing keyword.
 
 #Settings
     {
@@ -8,5 +8,5 @@ A visual source code plugin for navigate from cuurrent line or from line contain
     }
 
 #Commands
-    goto-line-ex.fromHere    // Jump to line (positive or negative)  offset is current position
-    goto-line-ex.fromKeyword // Jump to line (positive or negative>) offset is from keyword position
+    goto-line-ex.fromHere    // go to line (positive or negative)  from current position
+    goto-line-ex.fromKeyword // go to line (positive or negative>) from keyword position

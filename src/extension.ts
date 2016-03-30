@@ -61,7 +61,7 @@ class GotoController {
 
         vscode.window.showInputBox({prompt: prompt})
             .then(value => {
-                let jump = line + parseInt(value, 10),
+                let jump = line + parseInt(value, 10) - 1,
                     sel = new vscode.Selection(jump, 0, jump, 0);
                 vscode.window.activeTextEditor.selection = sel;
                 vscode.window.activeTextEditor.revealRange(sel, vscode.TextEditorRevealType.Default);
