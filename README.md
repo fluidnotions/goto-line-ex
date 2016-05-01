@@ -8,5 +8,5 @@ A visual source code plugin for navigate from current line or from line containi
     }
 
 #Commands
-    goto-line-ex.fromHere    // go to line (positive or negative)  from current position
-    goto-line-ex.fromKeyword // go to line (positive or negative>) from keyword position
+    goto-line-ex.fromHere    // go to line (positive or negative) from current position
+    goto-line-ex.fromKeyword // go to line (positive or negative) from keyword position

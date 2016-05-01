@@ -3,7 +3,7 @@
 	"displayName": "Goto line ex",
 	"description": "Go to line from current or keyword position",
     "publisher": "xyz",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"engines": {
 	    "vscode": "^0.10.7"
 	},
@@ -16,7 +16,8 @@
 	    "Other"
 	],
     "activationEvents": [
-	    "*"
+	    "onCommand:goto-line-ex.fromHere",
+		"onCommand:goto-line-ex.fromKeyword"
 	],
 	"contributes": {
 	    "commands": [{
