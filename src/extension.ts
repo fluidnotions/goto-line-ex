@@ -5,16 +5,17 @@ import path = require('path');
 
 interface IGotoSetting {
     keyword: string;
+    keywordAssociation: Object
 }
 
 /**
 * Activate the extension.
 */
-export function activate(disposables: vscode.Disposable[]) {
+export function activate(context: vscode.ExtensionContext) {
     let controller = new GotoController();
 
-    vscode.commands.registerCommand('goto-line-ex.fromHere', controller.GoFromHere, controller);
-    vscode.commands.registerCommand('goto-line-ex.fromKeyword', controller.GoFromKeyword, controller);
+    context.subscriptions.push(vscode.commands.registerCommand('goto-line-ex.fromHere', controller.GoFromHere, controller));
+    context.subscriptions.push(vscode.commands.registerCommand('goto-line-ex.fromKeyword', controller.GoFromKeyword, controller));
 }
 
 /**
@@ -33,24 +34,27 @@ class GotoController {
     }
 
     public GoFromKeyword() {
-        let keyword = this.settings.keyword;
+        let document = vscode.window.activeTextEditor.document,
+            keyword = this.getKeyword(path.extname(document.fileName));
+
         if (keyword === '') {
-            vscode.window.showErrorMessage('Please defined a keyword in settings');
+            vscode.window.showErrorMessage('Please define a keyword in settings');
             return;
         }
 
-        let text = vscode.window.activeTextEditor.document.getText(),
-            atext = text.split('\n'),
+        let text = document.getText(),
+            match = new RegExp('\\b'+keyword+'\\b','i'),
             matchLine = -1,
-            match = new RegExp(/\b/.source+keyword+/\b/.source,'i'); //  /\bbody\b/i;
+            found;
 
-        atext.forEach(
-            function (line, number) {
-                if (match.exec(line))
-                    matchLine = number;
-                    return;
+        do {
+            found = match.exec(text);
+            if (found) {
+                matchLine = document.lineAt(document.positionAt(found.index)).lineNumber;
+                break;
             }
-        );
+        }
+        while (found);
 
         if (matchLine >= 0) {
             this.internalJumpTo('Type a number to navigate from '+ keyword +' postition', matchLine);
@@ -68,11 +72,23 @@ class GotoController {
             });
     }
 
+    private getKeyword(ext: string) {
+        if (ext && this.settings.keywordAssociation) {
+            if (ext.startsWith('.'))
+                ext = ext.slice(1);
+            if (this.settings.keywordAssociation[ext])
+                return this.settings.keywordAssociation[ext];
+        }
+
+        return this.settings.keyword;
+    }
+
     private readSettings(): IGotoSetting {
         let config = vscode.workspace.getConfiguration('goto-line-ex');
 
         return {
-            keyword: <string>config.get('keyword') || ''
+            keyword: <string>config.get('keyword') || '',
+            keywordAssociation: config.get('keywordAssociations') || null
         }
     }
 }
