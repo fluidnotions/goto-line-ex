@@ -1,11 +1,10 @@
 import * as vscode from 'vscode';
 
-import fs = require('fs');
 import path = require('path');
 
 interface IGotoSetting {
     keyword: string;
-    keywordAssociation: Object
+    keywordAssociation: Object;
 }
 
 /**
@@ -89,6 +88,6 @@ class GotoController {
         return {
             keyword: <string>config.get('keyword') || '',
             keywordAssociation: config.get('keywordAssociations') || null
-        }
+        };
     }
 }
