@@ -29,7 +29,7 @@ class GotoController {
 
     public GoFromHere() {
         let actLine = vscode.window.activeTextEditor.selection.start.line;
-        this.internalJumpTo('Type a number to navigate from current postition', actLine);
+        this.internalJumpTo('Type a number to navigate from current position', actLine);
     }
 
     public GoFromKeyword() {
