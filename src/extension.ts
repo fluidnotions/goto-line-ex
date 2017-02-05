@@ -56,7 +56,7 @@ class GotoController {
         while (found);
 
         if (matchLine >= 0) {
-            this.internalJumpTo('Type a number to navigate from '+ keyword +' postition', matchLine);
+            this.internalJumpTo('Type a number to navigate from '+ keyword +' position', matchLine);
         }
     }
 
